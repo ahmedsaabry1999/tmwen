@@ -31,7 +31,7 @@ class Product(models.Model):
         Vendor, on_delete=models.CASCADE, default=None, null=True, blank=True
     )
     # fields
-    image = models.ImageField(upload_to="media")
+    image = models.ImageField(upload_to="media/")
     name = models.CharField(max_length=50)
     price = models.IntegerField()
     quantity = models.IntegerField()
