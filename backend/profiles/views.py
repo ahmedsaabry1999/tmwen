@@ -24,8 +24,12 @@ def login(request):
         profile = models.Profile.objects.get(user=user)
         user_type = 1
     except:
+        pass
+    try:
         vendor = vendors.Vendor.objects.get(user=user)
         user_type = 2
+    except:
+        pass
 
     serializer = serializers.LoginUserSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):

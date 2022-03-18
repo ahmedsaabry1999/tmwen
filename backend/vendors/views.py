@@ -22,7 +22,7 @@ def vendors(request):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(["PUT", "DELETE", "GET"])
+@api_view(["PUT", "POST", "GET"])
 def vendor_details(request, id):
     if request.method == "GET":
         print(id)
@@ -58,7 +58,7 @@ def vendor_details(request, id):
         vendor.save()
         serializer = serializers.VendorSerializer(vendor)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    if request.method == "DELETE":
+    if request.method == "POST":
         user = get_object_or_404(Token, key=request.data.get("token")).user
         vendor = get_object_or_404(models.Vendor, user=user)
         vendor.delete()
