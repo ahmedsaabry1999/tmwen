@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from . import serializers, models
 from vendors import models as vendors
@@ -18,6 +18,7 @@ def register(request):
 
 
 @api_view(["POST"])
+@csrf_exempt
 def login(request):
     user = User.objects.get(username=request.data.get("username"))
     try:
