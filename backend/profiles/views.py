@@ -104,7 +104,10 @@ def cart_details(request):
         serializer = serializers.CartSerializer(product)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    if request.method == "DELETE":
+
+@api_view(["POST"])
+def delete_product_from_cart(request):
+    if request.method == "POST":
         user = get_object_or_404(Token, key=request.data.get("token")).user
         product = get_object_or_404(
             models.Cart, id=request.data.get("id"), user=user

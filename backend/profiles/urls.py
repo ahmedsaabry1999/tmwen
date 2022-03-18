@@ -8,4 +8,5 @@ urlpatterns = [
     # cart
     path("cart/", views.cart),
     path("cart-details/", views.cart_details),
+    path("cart-product/", views.delete_product_from_cart),
 ]
