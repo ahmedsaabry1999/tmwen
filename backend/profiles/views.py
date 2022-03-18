@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 from . import serializers, models
 from vendors import models as vendors
+from django.contrib.auth.models import User
 
 # Create your views here.
 @api_view(["POST"])
@@ -18,9 +19,19 @@ def register(request):
 
 @api_view(["POST"])
 def login(request):
+    user = User.objects.get(username=request.data.get("username"))
+    try:
+        profile = models.Profile.objects.get(user=user)
+        user_type = 1
+    except:
+        vendor = vendors.Vendor.objects.get(user=user)
+        user_type = 2
+
     serializer = serializers.LoginUserSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = serializer.data
+        data["user_type"] = user_type
+        return Response(data, status=status.HTTP_200_OK)
 
 
 @api_view(["POST", "PUT", "DELETE"])

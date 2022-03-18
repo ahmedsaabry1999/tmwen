@@ -25,11 +25,13 @@ def vendors(request):
 @api_view(["PUT", "DELETE", "GET"])
 def vendor_details(request, id):
     if request.method == "GET":
-        vendor = get_object_or_404(models.Vendor, id=id)
+        print(id)
+        user = get_object_or_404(Token, key=id).user
+        vendor = get_object_or_404(models.Vendor, user=user)
         serializer = serializers.VendorSerializer(vendor)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == "PUT":
-        user = get_object_or_404(Token, key=request.data.get("token")).user
+        user = get_object_or_404(Token, key=id).user
         vendor = get_object_or_404(models.Vendor, user=user)
         if request.data.get("country") != "None" and request.data.get("country") != "":
             vendor.country_id = request.data.get("country")
