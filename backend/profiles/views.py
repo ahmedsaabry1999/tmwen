@@ -23,10 +23,12 @@ def login(request):
     try:
         profile = models.Profile.objects.get(user=user)
         user_type = 1
+        vendor_id = None
     except:
         pass
     try:
         vendor = vendors.Vendor.objects.get(user=user)
+        vendor_id = vendor.id
         user_type = 2
     except:
         pass
@@ -35,6 +37,7 @@ def login(request):
     if serializer.is_valid(raise_exception=True):
         data = serializer.data
         data["user_type"] = user_type
+        data["vendor_id"] = vendor_id
         return Response(data, status=status.HTTP_200_OK)
 
 
