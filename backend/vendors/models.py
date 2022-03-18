@@ -20,6 +20,7 @@ class Vendor(models.Model):
     address = models.CharField(max_length=50)
     open_time = models.TimeField(auto_now=False, auto_now_add=False)
     close_time = models.TimeField(auto_now=False, auto_now_add=False)
+    image = models.ImageField(upload_to="media/")
 
     def __str__(self):
         return self.name
