@@ -4,6 +4,7 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from django.shortcuts import get_object_or_404
 from locations import models as locations
+from vendors import serializers as vendors_serializers
 from . import models
 
 
@@ -116,7 +117,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     vendor = serializers.SlugRelatedField(slug_field="name", read_only=True)
-    product = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    # product = serializers.SlugRelatedField(slug_field="name", read_only=True)
+    product = vendors_serializers.Products(
+        many=False,
+        read_only=True,
+    )
 
     class Meta:
         model = models.Cart

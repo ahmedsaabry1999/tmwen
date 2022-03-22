@@ -23,7 +23,12 @@ class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vendor = models.ForeignKey(vendors.Vendor, on_delete=models.CASCADE)
     product = models.ForeignKey(
-        vendors.Product, on_delete=models.CASCADE, default=None, null=True, blank=True
+        vendors.Product,
+        on_delete=models.CASCADE,
+        default=None,
+        null=True,
+        blank=True,
+        related_name="cart_product",
     )
 
     # fields

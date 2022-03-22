@@ -13,6 +13,12 @@ class VendorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class Products(serializers.ModelSerializer):
+    class Meta:
+        model = models.Product
+        fields = "__all__"
+
+
 class ProductsSerializer(serializers.ModelSerializer):
     token = serializers.CharField(write_only=True)
 

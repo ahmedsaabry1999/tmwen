@@ -81,7 +81,7 @@ def profile(request):
 
 
 # cart
-@api_view(["POST", "PUT", "DELETE"])
+@api_view(["POST", "PUT"])
 def cart_details(request):
     if request.method == "POST":
         user = get_object_or_404(Token, key=request.data.get("token")).user
@@ -115,6 +115,7 @@ def delete_product_from_cart(request):
         return Response(status=status.HTTP_200_OK)
 
 
+# get cart items
 @api_view(["POST"])
 def cart(request):
     if request.method == "POST":
